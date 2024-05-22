@@ -4,8 +4,7 @@ from Editor import video_editor
 songs = songs_reader.read_songs()
 
 for song in songs:
-    try:
-        automation_runner.automation(song)
+    if automation_runner.automation(song):
         video_editor.edit_video(song)
-    except:
-        print("ERROR")
+    else:
+        print("Youtube Video was downloaded")

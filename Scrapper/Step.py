@@ -9,7 +9,6 @@ import pyautogui
 import pyperclip
 import uuid
 
-
 def config_chrome():
     global driver, actions
     options = webdriver.ChromeOptions()
@@ -55,6 +54,22 @@ def open_vid_context():
     wsh.SendKeys("{DOWN}")
     wsh.SendKeys("{DOWN}")
     wsh.SendKeys("{ENTER}")
+
+def download_youtube_video(output_path=Data.PATH_YOUTUBE):
+    from pytube import YouTube
+    video = driver.find_element(By.XPATH, "//article//a[@target]")
+
+    url = video.get_attribute('href')
+    try:
+        yt = YouTube(url)
+        print(f"Title: {yt.title}")
+        print(f"Number of views: {yt.views}")
+        ys = yt.streams.get_highest_resolution()
+        print(f"Downloading {yt.title}...")
+        ys.download(output_path)
+        print(f"Download completed! Video saved to {output_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def download_vid():
     time.sleep(3)
