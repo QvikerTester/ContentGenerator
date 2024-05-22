@@ -56,21 +56,20 @@ def open_vid_context():
     wsh.SendKeys("{DOWN}")
     wsh.SendKeys("{ENTER}")
 
-def download_youtube_video(output_path=Data.PATH_YOUTUBE):
+def download_youtube_video(output_path='.'):
     from pytube import YouTube
     video = driver.find_element(By.XPATH, "//article//a[@target]")
 
     url = video.get_attribute('href')
     print("download_utube_vid")
+    print(url)
     try:
         yt = YouTube(url)
-        print(f"Title: {yt.title}")
-        ys = yt.streams.get_highest_resolution()
-        print(f"Downloading {yt.title}...")
-        ys.download(output_path)
-        print(f"Download completed! Video saved to {output_path}")
+        stream = yt.streams.get_highest_resolution()
+        stream.download(output_path)
+        print(f"Downloaded: {yt.title}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(e)
 
 def download_vid():
     print("download_vid")

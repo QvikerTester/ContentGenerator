@@ -18,8 +18,9 @@ def automation(song_name):
         print("EXCEPT STARTED")
         time.sleep(4)
         Step.download_youtube_video()
-        print("YOUTUBE VID DOWNLOADED")
-        Step.crop_middle_30_seconds(song_name)
+        # print("YOUTUBE VID DOWNLOADED")
+        # time.sleep(15)
+        # Step.crop_middle_30_seconds(song_name)
         Step.teardown()
         return False
 
