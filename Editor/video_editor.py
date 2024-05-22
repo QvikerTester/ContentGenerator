@@ -39,7 +39,7 @@ def edit_video(song_name):
         font = cv2.FONT_HERSHEY_SIMPLEX
         max_font_scale = 3
         font_thickness = 6
-        text_color = (0, 0, 0)  # Black color
+        text_color = (255, 255, 255)  # white color
         max_text_width = new_width - 40  # Maximum width for text box
 
         # Function to draw centered text with dynamic font size
@@ -77,7 +77,7 @@ def edit_video(song_name):
             frame = cv2.resize(frame, (new_width, new_height))
 
             # Create a new frame with the extra space for top and bottom boxes
-            new_frame = np.ones((output_height, output_width, 3), dtype=np.uint8) * 255  # White background
+            new_frame = np.ones((output_height, output_width, 3), dtype=np.uint8) * 0  # White background
 
             # Place the resized video frame in the center
             y_offset = box_height + (output_height - 2 * box_height - new_height) // 2

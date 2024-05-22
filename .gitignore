@@ -186,3 +186,10 @@ fabric.properties
 
 # idea folder, uncomment if you don't need it
 # .idea
+temp_audio.wav
+*.mp4
+*.mp4
+*.mp4
+*.wav
+*.mp3
+*.mp4
