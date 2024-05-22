@@ -9,8 +9,6 @@ import csv
 def config_chrome():
     global driver, actions
     options = webdriver.ChromeOptions()
-    # options.add_experimental_option("detach", True)
-
     driver = webdriver.Chrome(options=options)
     actions = ActionChains(driver)
 

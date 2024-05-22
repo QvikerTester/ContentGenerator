@@ -8,6 +8,7 @@ import time
 import pyautogui
 import pyperclip
 import uuid
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
 def config_chrome():
     global driver, actions
@@ -30,7 +31,7 @@ def search_song(song_name):
     input = driver.find_element(By.XPATH, "//input[@type='text']")
     input.send_keys(song_name)
 
-    time.sleep(2)
+    time.sleep(4)
     first_song = driver.find_elements(By.XPATH, "//div[@role='listbox']//a")
     first_song[0].click()
 
@@ -60,10 +61,10 @@ def download_youtube_video(output_path=Data.PATH_YOUTUBE):
     video = driver.find_element(By.XPATH, "//article//a[@target]")
 
     url = video.get_attribute('href')
+    print("download_utube_vid")
     try:
         yt = YouTube(url)
         print(f"Title: {yt.title}")
-        print(f"Number of views: {yt.views}")
         ys = yt.streams.get_highest_resolution()
         print(f"Downloading {yt.title}...")
         ys.download(output_path)
@@ -72,6 +73,8 @@ def download_youtube_video(output_path=Data.PATH_YOUTUBE):
         print(f"An error occurred: {e}")
 
 def download_vid():
+    print("download_vid")
+
     time.sleep(3)
     pyperclip.copy(Data.PATH+ "input.mp4")
     time.sleep(1)
@@ -79,6 +82,23 @@ def download_vid():
     pyautogui.hotkey('enter')
 
     actions.key_down(Keys.ENTER).key_up(Keys.ENTER).perform()
+
+
+def crop_middle_30_seconds(output_file):
+    print("crop_middle_30")
+    clip = VideoFileClip(Data.PATH_YOUTUBE)
+    print("Clip Read")
+
+    duration = clip.duration
+
+    middle_start = (duration - 30) / 2
+    middle_end = middle_start + 30
+    cropped_clip = clip.subclip(middle_start, middle_end)
+    cropped_clip.write_videofile("C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\"+output_file+".mp4", codec="libx264")
+    clip.close()
+    cropped_clip.close()
+    print("Crop ended")
+
 
 def teardown():
     time.sleep(5)

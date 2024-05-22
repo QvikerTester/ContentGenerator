@@ -36,7 +36,7 @@ def edit_video(song_name):
         out = cv2.VideoWriter(output_video_path, fourcc, fps, (output_width, output_height))
 
         # Define the font and text parameters
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        font = cv2.FONT_HERSHEY_TRIPLEX
         max_font_scale = 3
         font_thickness = 6
         text_color = (255, 255, 255)  # white color
