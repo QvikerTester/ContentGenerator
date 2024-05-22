@@ -9,6 +9,7 @@ import pyautogui
 import pyperclip
 import uuid
 from moviepy.video.io.VideoFileClip import VideoFileClip
+import yt_dlp
 
 def config_chrome():
     global driver, actions
@@ -56,7 +57,7 @@ def open_vid_context():
     wsh.SendKeys("{DOWN}")
     wsh.SendKeys("{ENTER}")
 
-def download_youtube_video(output_path='.'):
+def download_youtube_video(output_path=Data.PATH):
     from pytube import YouTube
     video = driver.find_element(By.XPATH, "//article//a[@target]")
 
@@ -64,10 +65,12 @@ def download_youtube_video(output_path='.'):
     print("download_utube_vid")
     print(url)
     try:
-        yt = YouTube(url)
-        stream = yt.streams.get_highest_resolution()
-        stream.download(output_path)
-        print(f"Downloaded: {yt.title}")
+        ydl_opts = {
+            'outtmpl': f'{output_path}/input.mp4',
+            'format': 'best'
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
     except Exception as e:
         print(e)
 
@@ -85,7 +88,8 @@ def download_vid():
 
 def crop_middle_30_seconds(output_file):
     print("crop_middle_30")
-    clip = VideoFileClip(Data.PATH_YOUTUBE)
+    print(output_file)
+    clip = VideoFileClip(Data.PATH+ "input.mp4")
     print("Clip Read")
 
     duration = clip.duration
@@ -93,7 +97,7 @@ def crop_middle_30_seconds(output_file):
     middle_start = (duration - 30) / 2
     middle_end = middle_start + 30
     cropped_clip = clip.subclip(middle_start, middle_end)
-    cropped_clip.write_videofile("C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\"+output_file+".mp4", codec="libx264")
+    cropped_clip.write_videofile(Data.PATH+output_file+".mp4", codec="libx264")
     clip.close()
     cropped_clip.close()
     print("Crop ended")

@@ -1,12 +1,13 @@
-from pytube import YouTube
+import yt_dlp
 
 def download_youtube_video(url, output_path='.'):
-    yt = YouTube(url)
-    stream = yt.streams.get_highest_resolution()
-    stream.download(output_path)
-    print(f"Downloaded: {yt.title}")
+    ydl_opts = {
+        'outtmpl': f'{output_path}/%(title)s.%(ext)s',
+        'format': 'best'
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
 
-
-url = "https://youtu.be/uIBJJ3M76Mg?autoplay=1"
+url = "https://youtu.be/3wkNLqetX0M?autoplay=1"
 output_path = "."  # Specify your output path here
 download_youtube_video(url, output_path)
