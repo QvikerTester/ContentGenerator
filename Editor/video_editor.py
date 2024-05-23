@@ -98,7 +98,6 @@ def edit_video(song_name):
         cap.release()
         out.release()
 
-
     # Example usage
     input_video_path = "C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\temp\\input.mp4"
     output_video_path = 'C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\done\\output_video.mp4'

@@ -57,12 +57,11 @@ def open_vid_context():
     wsh.SendKeys("{DOWN}")
     wsh.SendKeys("{ENTER}")
 
-def download_youtube_video(output_path=Data.PATH):
+def download_youtube_video(output_path=Data.PATH_YOUTUBE):
     from pytube import YouTube
     video = driver.find_element(By.XPATH, "//article//a[@target]")
 
     url = video.get_attribute('href')
-    print("download_utube_vid")
     print(url)
     try:
         ydl_opts = {
@@ -75,10 +74,8 @@ def download_youtube_video(output_path=Data.PATH):
         print(e)
 
 def download_vid():
-    print("download_vid")
-
     time.sleep(3)
-    pyperclip.copy(Data.PATH+ "input.mp4")
+    pyperclip.copy(Data.PATH + "input.mp4")
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'v')
     pyautogui.hotkey('enter')
@@ -87,20 +84,19 @@ def download_vid():
 
 
 def crop_middle_30_seconds(output_file):
-    print("crop_middle_30")
     print(output_file)
-    clip = VideoFileClip(Data.PATH+ "input.mp4")
-    print("Clip Read")
+    clip = VideoFileClip(Data.PATH_YOUTUBE + "\\input.mp4")
 
     duration = clip.duration
 
     middle_start = (duration - 30) / 2
     middle_end = middle_start + 30
     cropped_clip = clip.subclip(middle_start, middle_end)
-    cropped_clip.write_videofile(Data.PATH+output_file+".mp4", codec="libx264")
+    cropped_clip.write_videofile(Data.PATH+"input.mp4", codec="libx264")
     clip.close()
     cropped_clip.close()
-    print("Crop ended")
+
+
 
 
 def teardown():
