@@ -1,5 +1,5 @@
 import os
-
+from Scrapper import Data
 import cv2
 import numpy as np
 from moviepy.editor import VideoFileClip, AudioFileClip
@@ -99,7 +99,7 @@ def edit_video(song_name):
         out.release()
 
     # Example usage
-    input_video_path = "C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\temp\\input.mp4"
+    input_video_path = Data.PATH+"input.mp4"
     output_video_path = 'C:\\Users\\Mawan\\PycharmProjects\\ContentGenerator\\Videos\\done\\output_video.mp4'
     top_text = "Finding songs which I Heard\r But Forgot"
     bottom_text = 'Song Name: '+ song_name
@@ -118,3 +118,8 @@ def edit_video(song_name):
 
     final_clip.write_videofile("Videos\\"+song_name+".mp4", codec="libx264", audio_codec="aac")
     os.remove(input_video_path)
+    try:
+        os.remove(Data.PATH_YOUTUBE+"\\input.mp4")
+    except:
+        print("file was not in youtubed")
+
